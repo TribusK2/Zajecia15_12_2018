@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:1542/api/komentarze",
+                    method: "GET", //default: GET
+                    timeout: 10000, //default: infinitive
+                    dataType: "json", //default: json
+                    contentType: "application/json", //default: application/json
+
+                }).done(function (comments) { //koomentarze z serwera
+                    //console.log(JSON.stringify(comments));
+                    $("#comments").html(""); //czyścimy html
+                    $.each(comments, function (index, comment) {
+                        $("#comments").append("<li>" + comment.Komentarz + "</li>");
+                    });
+
+                }).fail(function (xhr, status, message) {
+                    alert(message);
+                });
+            }, 5000);
+        });
+    </script>
+</head>
+<body>
+    <h2>Program auto-nauczanie JS</h2>
+    <ul id="comments">
+        
+    </ul>
+</body>
+</html>
